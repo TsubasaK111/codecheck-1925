@@ -2,11 +2,11 @@
 
 Sudoku is a number-placement puzzle.
 
-The goal of this challenge is to write a sudoku solving algorithm.  
+The goal of this challenge is to write a sudoku solving algorithm.
 
 ## Step 1, Solve sudoku
 
-The application will send you 3 different puzzles with form of two-dimensional array.
+The application will send you 3 different puzzles in the form of two-dimensional arrays.
 
 Solve those puzzles through the "solve" function.
 
@@ -15,8 +15,20 @@ In [answer.md](./answer.md) write a brief explanation about how your code works 
 
 ## Notes
 ### About Python
-- The test is run with `nosetests`.
-- Python version is 2.x. (TestServer uses 2.7.6)
+- The test is run using `nosetests`.
+- The Python version is 2.x. (TestServer uses 2.7.6)
+
+- With codecheck, you can run the test code and confirm whether your answer is correct.
+- If you are taking the test via the Codecheck Web Editor, hit the "Run" button in the console.
+- If you are taking the test locally via GitHub, follow these instructions to install the Codecheck CLI and run the tests.
+
+- Go to the root folder in your cloned project, and install Codecheck CLI with the below command:
+```
+$ npm install codecheck -g
+```
+
+- To run the test, enter `codecheck` from the root folder.
+
 
 ### Sudoku rules
 
