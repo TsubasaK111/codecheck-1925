@@ -69,4 +69,3 @@ $ npm install codecheck -g
 ```
 
 - テストを実行するにはroot folderから `codecheck`を入力し、実行してください
-
