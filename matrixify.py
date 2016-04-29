@@ -17,5 +17,4 @@ def block_matrixify(flat_array):
             print """assigning {item} to block_matrix[{X}][{Y}][{x}][{y}]...
                   """.format( item = item, X = X, Y = Y, x = x, y = y )
             block_matrix[X][Y][x][y] = item
-
-    return block_matrix
+    return block_matrix    

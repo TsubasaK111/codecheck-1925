@@ -4,9 +4,19 @@ class Cell():
         self.Y = int(Y)
         self.x = int(x)
         self.y = int(y)
-        self.value = int(value)
-        if value != 0:
-            self.constant = True
+        self.initial_value = int(value)
+        self.value = self.initial_value
+    def __str__(self):
+        return str(self.value)
+    def __repr__(self):
+        return str(self.value)
+        return """<Cell at Grid[{X}][{Y}][{x}][{y}] (value={value}, initial={initial_value})>""".format(
+                value = self.value,
+                initial_value = self.initial_value,
+                X = self.X,
+                Y = self.Y,
+                x = self.x,
+                y = self.y )
 
 
 def cellify(grid):
@@ -16,5 +26,10 @@ def cellify(grid):
         for Y, subgrid in enumerate(grid_row):
             for x, row in enumerate(subgrid):
                 for y, item in enumerate(row):
-                    row[y] = Cell(value=item, X=X, Y=Y, x=x, y=y)
+                    cell = Cell(value=item, X=X, Y=Y, x=x, y=y)
+                    if cell.value != 0:
+                        cell.constant = True
+                    else:
+                        cell.constant = False
+                    row[y] = cell
     return grid
