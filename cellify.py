@@ -1,5 +1,5 @@
 class Cell():
-    def __init__(self, value, X, Y, x, y):
+    def __init__(self, value, X=0, Y=0, x=0, y=0):
         self.X = int(X)
         self.Y = int(Y)
         self.x = int(x)
@@ -9,7 +9,6 @@ class Cell():
     def __str__(self):
         return str(self.value)
     def __repr__(self):
-        return str(self.value)
         return """<Cell at Grid[{X}][{Y}][{x}][{y}] (value={value}, initial={initial_value})>""".format(
                 value = self.value,
                 initial_value = self.initial_value,
