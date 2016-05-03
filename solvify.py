@@ -25,7 +25,6 @@ def recursive_solve(cell, grid):
             if last_cell(cell):
                 print "I think we have a winner!!! :D"
                 print_grid(grid)
-                pdb.set_trace()
                 return grid
             else:
                 solved_grid = recursive_solve(next_cell(cell, grid), grid)
