@@ -14,4 +14,5 @@ def solve(flat_array):
     solved_flat_array = un_block_matrixify(grid)
     print flat_array
     print solved_flat_array
+    pdb.set_trace()
     return solved_flat_array
