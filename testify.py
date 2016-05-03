@@ -1,59 +1,4 @@
-import pdb;
-
-
-def print_grid(grid):
-    for X, grid_row in enumerate(grid):
-        for x in range(0,3):
-            output = "["
-            for Y in range(0,3):
-                output += "[ "
-                for y in range(0,3):
-                    output += str(grid[X][Y][x][y].value)
-                output += " ]"
-            output = output + "]"
-            print output
-
-
-def increment(cell):
-    cell.value = cell.value + 1
-    if cell.value > 9:
-        cell.value = 1
-    return cell
-
-
-def test_grid(grid):
-    for X, grid_row in enumerate(grid):
-        for Y, subgrid in enumerate(grid_row):
-            for x, subgrid_row in enumerate(subgrid):
-                for y, cell in enumerate(subgrid_row):
-                    subgrid_row[y] = try_something(cell, grid)
-    return grid
-
-
-
-def try_something(cell, grid):
-    if cell.constant:
-        return cell
-    elif cell.value == 0:
-        cell = increment(cell)
-
-    try:
-        unique, failed_tests = test_cell(cell, grid)
-    except ValueError as error:
-        pdb.set_trace()
-
-    if not unique:
-        for i in range(1,9):
-            cell = increment(cell)
-            unique, failed_tests = test_cell(cell, grid)
-            if unique:
-                return cell
-        if not unique:
-            print "backtrack!", failed_tests, cell
-            print_grid(grid)
-            pdb.set_trace()
-            #TODO: implement recursive backtracking
-    return cell
+import pdb, sys
 
 
 def test_cell(cell, grid):
@@ -92,10 +37,7 @@ def test_subgrid(cell, grid):
             array.append(grid[cell.X][cell.Y][x][y])
     return test_array(array, cell)
 
-
 def test_array(array, cell):
-    # if cell.Y ==1 and cell.value==5:
-    #     pdb.set_trace()
     if cell.constant:
         raise ValueError("Cell value is constant!!", cell, array)
     elif cell.value == 0:
@@ -105,7 +47,10 @@ def test_array(array, cell):
     value_array = []
     for other_cell in array:
         value_array.append(other_cell.value)
-    found = value_array.count(cell.value)
+    if value_array == []:
+        found = 0
+    else:
+        found = value_array.count(cell.value)
     if found > 1:
         return False
     else:
