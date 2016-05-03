@@ -28,8 +28,9 @@ def un_block_matrixify(block_matrix):
         for Y, subgrid in enumerate(grid_row):
             for x, row in enumerate(subgrid):
                 for y, item in enumerate(row):
-                    B = (X * 3) + x
-                    a = (Y * 3) + y
+                    B = (Y * 3) + y
+                    a = (X * 3) + x
                     print """assigning {item} to flat_array[{B}][{a}]...
-                          """.format( item = item, B = B, a = a)
+                          """.format( item = item.__repr__(), B = B, a = a )
                     flat_array[B][a] = item
+    return flat_array

@@ -6,20 +6,20 @@ def solve_grid(grid):
     global deepest_cell
     deepest_cell = grid[0][0][0][0]
     solved_grid = recursive_solve(grid[0][0][0][0], grid)
-    pdb.set_trace()
     return solved_grid
 
 
 def recursive_solve(cell, grid):
-    if cell.constant:
+    if last_cell(cell) and cell.constant:
+        return grid
+    elif cell.constant:
         print "cell is constant!"
         cell = next_cell(cell,grid)
     for i in range(1,10):
         cell.value = i
         unique, failed_tests = testify.test_cell(cell, grid)
         if unique:
-            # Test is a success!
-            # Store successful value into cell and move to next cell
+            # Test is a success, save successful value into cell, move to next cell
             save_cell(cell, grid)
             print "cell value set to: " + cell.__repr__()
             if last_cell(cell):
@@ -30,8 +30,9 @@ def recursive_solve(cell, grid):
             else:
                 solved_grid = recursive_solve(next_cell(cell, grid), grid)
                 if solved_grid is not None:
+                    print "returning solved grid up the recursive stack..."
                     return solved_grid
-                print "backtrack!"
+                print "backtracking..."
 
     print "end of the line for this cell!"
     cell.value = 0
@@ -99,12 +100,14 @@ def next_cell(cell, grid):
                     X += 1
                     if X > 2:
                         pdb.set_trace()
+                        return cell
         new_cell = grid[X][Y][x][y]
         if new_cell.constant == True:
             print "cell is constant!"
             new_cell = next_cell(new_cell, grid)
         print "next up: ", new_cell.__repr__()
         return new_cell
+
     except: # catch *all* exceptions
         error = sys.exc_info()[0]
         pdb.set_trace()

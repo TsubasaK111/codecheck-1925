@@ -10,8 +10,9 @@ def solve(flat_array):
     grid = cellify(grid)
     solved_grid = solvify.solve_grid(grid)
     solvify.print_grid(solved_grid)
-    pdb.set_trace()
     grid = uncellify(grid)
     solved_flat_array = un_block_matrixify(grid)
+    print flat_array
+    print solved_flat_array
     pdb.set_trace()
-    return grid
+    return solved_flat_array
