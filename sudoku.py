@@ -12,6 +12,6 @@ def solve(flat_array):
     solvify.print_grid(solved_grid)
     pdb.set_trace()
     grid = uncellify(grid)
-    flat_array = un_block_matrixify(grid)
+    solved_flat_array = un_block_matrixify(grid)
     pdb.set_trace()
     return grid

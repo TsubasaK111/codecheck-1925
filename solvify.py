@@ -2,6 +2,44 @@ import pdb, sys
 import testify
 
 
+def solve_grid(grid):
+    global deepest_cell
+    deepest_cell = grid[0][0][0][0]
+    solved_grid = recursive_solve(grid[0][0][0][0], grid)
+    pdb.set_trace()
+    return solved_grid
+
+
+def recursive_solve(cell, grid):
+    if cell.constant:
+        print "cell is constant!"
+        cell = next_cell(cell,grid)
+    for i in range(1,10):
+        cell.value = i
+        unique, failed_tests = testify.test_cell(cell, grid)
+        if unique:
+            # Test is a success!
+            # Store successful value into cell and move to next cell
+            save_cell(cell, grid)
+            print "cell value set to: " + cell.__repr__()
+            if last_cell(cell):
+                print "I think we have a winner!!! :D"
+                print_grid(grid)
+                pdb.set_trace()
+                return grid
+            else:
+                solved_grid = recursive_solve(next_cell(cell, grid), grid)
+                if solved_grid is not None:
+                    return solved_grid
+                print "backtrack!"
+
+    print "end of the line for this cell!"
+    cell.value = 0
+    save_cell(cell, grid)
+    print_grid(grid)
+    print cell.__repr__()
+
+
 def print_grid(grid):
     try:
         print "#########"
@@ -23,59 +61,23 @@ def print_grid(grid):
         pdb.set_trace()
 
 
-def solve_grid(grid):
-
-
-    def save_cell(cell):
-        global deepest_cell
-        grid[cell.X][cell.Y][cell.x][cell.y] = cell
-        current_node_depth = (((cell.X * 3 + cell.Y) * 3 + cell.x) * 3 + cell.y)
-        deepest_node_depth = (((deepest_cell.X * 3 + deepest_cell.Y) * 3 + deepest_cell.x) * 3 + deepest_cell.y)
-        if current_node_depth > deepest_node_depth:
-            deepest_cell = cell
-
-
-    def recursive_solve(cell):
-        try:
-            if cell.constant:
-                print "cell is constant!"
-                cell = next_cell(cell,grid)
-
-            for i in range(1,10):
-                cell.value = i
-                unique, failed_tests = testify.test_cell(cell, grid)
-                if unique:
-                    # Test is a success!
-                    # Store successful value into cell and move to next cell
-                    save_cell(cell)
-                    print "cell value set to: " + cell.__repr__()
-                    if cell.X == 2 and cell.Y == 2 and cell.x ==2 and cell.y ==2:
-                        print "I think we have a winner!!! :D"
-                        print_grid(grid)
-                        pdb.set_trace()
-                        return grid
-                    else:
-                        recursive_solve(next_cell(cell, grid))
-                        print "backtrack!"
-
-            print "end of the line for this cell!"
-            cell.value = 0
-            save_cell(cell)
-            print_grid(grid)
-            print cell.__repr__()
-
-        except: # catch *all* exceptions
-            error = sys.exc_info()[0]
-            pdb.set_trace()
-
+def save_cell(cell, grid):
     global deepest_cell
-    deepest_cell = grid[0][0][0][0]
+    current_node_depth = (((cell.X * 3 + cell.Y) * 3 + cell.x) * 3 + cell.y)
+    deepest_node_depth = (((deepest_cell.X * 3 + deepest_cell.Y) * 3 + deepest_cell.x) * 3 + deepest_cell.y)
+    if current_node_depth > deepest_node_depth:
+        deepest_cell = cell
+    if last_cell(deepest_cell):
+        return
+    else:
+        grid[cell.X][cell.Y][cell.x][cell.y] = cell
 
-    recursive_solve(grid[0][0][0][0])
-    print "deepest node was at: " + deepest_cell.__repr__()
-    pdb.set_trace()
-    return grid
 
+def last_cell(cell):
+    if cell.X == 2 and cell.Y == 2 and cell.x ==2 and cell.y ==2:
+        return True
+    else:
+        return False
 
 
 def next_cell(cell, grid):
