@@ -35,8 +35,8 @@ def test_array(array, cell):
         raise ValueError("Cell value is constant!!", cell, array)
     elif cell.value == 0:
         raise ValueError("Cell value is zero!", cell, array)
-    # create new array containing only cell values so
-    # .count method can be used to identify overlapping values in array.
+    # create new array containing only cell values to use
+    # .count method to identify overlapping values in array.
     value_array = []
     for other_cell in array:
         value_array.append(other_cell.value)
