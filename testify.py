@@ -2,7 +2,7 @@ import pdb, sys
 
 
 def test_cell(cell, grid):
-    failed_tests=[]
+    """run all sudoku tests to see if a cell value is valid."""
     if (test_column(cell,grid) and test_row(cell,grid) and test_subgrid(cell,grid)):
         return True
     else:
@@ -16,6 +16,7 @@ def test_row(cell, grid):
             array.append(grid[X][cell.Y][x][cell.y])
     return test_array(array, cell)
 
+
 def test_column(cell, grid):
     array = []
     for Y, subgrid in enumerate(grid[cell.X]):
@@ -23,12 +24,14 @@ def test_column(cell, grid):
             array.append(grid[cell.X][Y][cell.x][y])
     return test_array(array, cell)
 
+
 def test_subgrid(cell, grid):
     array = []
     for x, subgrid_column in enumerate(grid[cell.X][cell.Y]):
         for y, other_cell in enumerate(subgrid_column):
             array.append(grid[cell.X][cell.Y][x][y])
     return test_array(array, cell)
+
 
 def test_array(array, cell):
     if cell.constant:

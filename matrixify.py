@@ -14,8 +14,6 @@ def block_matrixify(flat_array):
             Y = int( b / 3 )
             x = ( A % 3 )
             y = ( b % 3 )
-            print """assigning {item} to block_matrix[{X}][{Y}][{x}][{y}]...
-                  """.format( item = item, X = X, Y = Y, x = x, y = y )
             block_matrix[X][Y][x][y] = item
     return block_matrix
 
@@ -23,20 +21,18 @@ def un_block_matrixify(block_matrix):
     """Reverse the 'block_matrixify()' process and restructure the
        four-dimensional array into a two-dimensional array"""
     flat_array = [[0 for b in range(9)] for A in range(9)]
-
-    for X, grid_row in enumerate(block_matrix):
-        for Y, subgrid in enumerate(grid_row):
-            for x, row in enumerate(subgrid):
-                for y, item in enumerate(row):
+    for X, grid_column in enumerate(block_matrix):
+        for Y, subgrid in enumerate(grid_column):
+            for x, column in enumerate(subgrid):
+                for y, item in enumerate(column):
                     A = (X * 3) + x
-                    b = (X * 3) + y
-                    print """assigning {item} to flat_array[{A}][{b}]...
-                          """.format( item = item.__repr__(), A = A, b = b )
+                    b = (Y * 3) + y
                     flat_array[A][b] = item
     return flat_array
 
 
 def print_grid(grid):
+    """Prettily print a sudoku grid."""
     print "-----------------------"
     for Y in range(3):
         for y in range(3):
@@ -52,4 +48,3 @@ def print_grid(grid):
             output += "]"
             print output
         print "-----------------------"
-        

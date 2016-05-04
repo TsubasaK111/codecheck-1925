@@ -9,8 +9,38 @@ def solve_grid(grid):
     solved_grid = recursive_solve(grid[0][0][0][0], grid)
     return solved_grid
 
+
+def recursive_solve(cell, grid):
+    """Recursive backtracking algorithm component. Enumerate through integers in
+       each cell and build solution candidates by recursively calling itself."""
+    # prevent a bug where grids with a constant in last cell would not solve.
+    if last_cell(cell) and cell.constant:
+        return grid
+    elif cell.constant:
+        cell = next_cell(cell,grid)
+    for i in range(1,10):
+        cell = increment_cell(cell, grid)
+        unique = testify.test_cell(cell, grid)
+        if unique:
+            # Test is a success, save value into cell and recurse to next cell
+            save_cell(cell, grid)
+            if last_cell(cell):
+                # Tree has reached the last cell, so we have a solution grid!
+                print_grid(grid)
+                return grid
+            else:
+                solved_grid = recursive_solve(next_cell(cell, grid), grid)
+                # if a solved grid is returned, send solved grid up the stack.
+                if solved_grid is not None:
+                    return solved_grid
+    # this subtree does not have a solution, so it must be pruned (reset value).
+    cell.value = 0
+    save_cell(cell, grid)
+
+
 def increment_cell(cell, grid):
-    # pdb.set_trace()
+    """increment cell value based on the value of previous cell.
+       this is to enable enumerating to a 'valid' value faster."""
     old_cell = previous_cell(cell, grid)
     if cell.value == 0:
         cell.value = old_cell.value + 1
@@ -20,57 +50,26 @@ def increment_cell(cell, grid):
         cell.value = 1
     return cell
 
-def recursive_solve(cell, grid):
-    if last_cell(cell) and cell.constant:
-        return grid
-    elif cell.constant:
-        print "cell is constant!"
-        cell = next_cell(cell,grid)
-    for i in range(1,10):
-        cell = increment_cell(cell, grid)
-        unique = testify.test_cell(cell, grid)
-        if unique:
-            # Test is a success, save successful value into cell, move to next cell
-            save_cell(cell, grid)
-            print "cell value set to: " + cell.__repr__()
-            if last_cell(cell):
-                print "I think we have a winner!!! :D"
-                print_grid(grid)
-                # pdb.set_trace()
-                return grid
-            else:
-                solved_grid = recursive_solve(next_cell(cell, grid), grid)
-                if solved_grid is not None:
-                    print "returning solved grid up the recursive stack..."
-                    return solved_grid
-                print "backtracking..."
-    print "end of the line for this cell!"
-    cell.value = 0
-    save_cell(cell, grid)
-    print_grid(grid)
-    print cell.__repr__()
-
 
 def save_cell(cell, grid):
+    """Method to save the given cell into the grid in the appropriate location.
+       Also tracks depth of potential search tree to prevent solution
+       corruption."""
     global deepest_cell
     current_node_depth = (((cell.X * 3 + cell.Y) * 3 + cell.x) * 3 + cell.y)
     deepest_node_depth = (((deepest_cell.X * 3 + deepest_cell.Y) * 3 + deepest_cell.x) * 3 + deepest_cell.y)
     if current_node_depth > deepest_node_depth:
         deepest_cell = cell
+    # terminate if a solution has been reached
+    # to prevent unsuccessful subtrees from corrupting.
     if last_cell(deepest_cell):
         return
     else:
         grid[cell.X][cell.Y][cell.x][cell.y] = cell
 
 
-def last_cell(cell):
-    if cell.X == 2 and cell.Y == 2 and cell.x ==2 and cell.y ==2:
-        return True
-    else:
-        return False
-
 def previous_cell(cell, grid):
-    print "cell is: ", cell.__repr__()
+    """Returns the previous cell in the grid."""
     X = cell.X
     Y = cell.Y
     x = cell.x
@@ -86,13 +85,14 @@ def previous_cell(cell, grid):
                 Y = 0
                 X -= 1
                 if X < 0:
+                    # This is the first cell in the grid, so return first cell.
                     return cell
     old_cell = grid[X][Y][x][y]
-    print "previous cell is: ", old_cell.__repr__()
     return old_cell
 
+
 def next_cell(cell, grid):
-    print "cell was: ", cell.__repr__()
+    """Returns the next cell in the grid that is NOT a constant."""
     X = cell.X
     Y = cell.Y
     x = cell.x
@@ -108,10 +108,17 @@ def next_cell(cell, grid):
                 Y = 0
                 X += 1
                 if X > 2:
+                    # This is the last cell in the grid, so return last cell.
                     return cell
     new_cell = grid[X][Y][x][y]
+    # Find the next non-constant cell by recursion.
     if new_cell.constant == True:
-        print "cell is constant!"
         new_cell = next_cell(new_cell, grid)
-    print "next up: ", new_cell.__repr__()
     return new_cell
+
+
+def last_cell(cell):
+    if cell.X == 2 and cell.Y == 2 and cell.x ==2 and cell.y ==2:
+        return True
+    else:
+        return False
