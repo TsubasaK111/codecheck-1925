@@ -4,14 +4,14 @@ Sudoku is a number-placement puzzle.
 
 The goal of this challenge is to write a sudoku solving algorithm.
 
-## Step 1, Solve sudoku
+## Step 1. Solve sudoku
 
 The application will send you 3 different puzzles in the form of two-dimensional arrays.
 
-Solve those puzzles through the "solve" function.
+Solve these puzzles in the "solve" function.
 
-## Step 2, Explain your code
-In [answer.md](./answer.md) write a brief explanation about how your code works and how you solved any problems which you've encountered.
+## Step 2. Explain your code
+In [answer.md](./answer.md) write a brief explanation about how your code works and how you solved any problems that you encountered.
 
 ## Notes
 ### About Python
@@ -32,14 +32,14 @@ $ npm install codecheck -g
 
 ### Sudoku rules
 
-Sudoku is a puzzle made out of 9x9 matrix. We also have 9 sub-grids which are made of 3x3 cells.
+Sudoku is a puzzle made out of a 9x9 matrix. The matrix is made of 9 sub-grids which are made of 3x3 cells.
 A valid sudoku contains the numbers 1-9 each 9 times while not breaking one simple rule: "A sub-grid, column or row can only contain each number once".
 
-You can find more details in [Wikipedia](https://en.wikipedia.org/wiki/Sudoku).
+You can find more details on [Wikipedia](https://en.wikipedia.org/wiki/Sudoku).
 
 ### Sudoku solution
 
-Some sudoku has multiple solutions, but all of puzzles we provide have a unique solution.
+Some sudoku have multiple solutions, but all of the puzzles we provide have a unique solution.
 
 #### Puzzle 1
 

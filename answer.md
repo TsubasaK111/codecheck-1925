@@ -1,5 +1,5 @@
 # Codecheck Sudoku[Python] Solution
-   This is my solution for Codecheck's Sudoku challenge in Python.
+   This is my solution for <a href="https://app.code-check.io/orgs/codecheck_official/challenges/109">Codecheck's Sudoku challenge</a> in Python.
 
 ##Methodology:
    This solution employs a simple backtracking algorithm with some modifications.
