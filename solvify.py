@@ -1,5 +1,6 @@
 import pdb, sys
 import testify
+from matrixify import print_grid
 
 
 def solve_grid(grid):
@@ -17,7 +18,7 @@ def recursive_solve(cell, grid):
         cell = next_cell(cell,grid)
     for i in range(1,10):
         cell.value = i
-        unique, failed_tests = testify.test_cell(cell, grid)
+        unique = testify.test_cell(cell, grid)
         if unique:
             # Test is a success, save successful value into cell, move to next cell
             save_cell(cell, grid)
@@ -25,6 +26,7 @@ def recursive_solve(cell, grid):
             if last_cell(cell):
                 print "I think we have a winner!!! :D"
                 print_grid(grid)
+                pdb.set_trace()
                 return grid
             else:
                 solved_grid = recursive_solve(next_cell(cell, grid), grid)
@@ -32,29 +34,11 @@ def recursive_solve(cell, grid):
                     print "returning solved grid up the recursive stack..."
                     return solved_grid
                 print "backtracking..."
-
     print "end of the line for this cell!"
     cell.value = 0
     save_cell(cell, grid)
     print_grid(grid)
     print cell.__repr__()
-
-
-def print_grid(grid):
-    print "#########"
-    for X, grid_row in enumerate(grid):
-        for x in range(0,3):
-            output = "["
-            for Y in range(0,3):
-                output += "[ "
-                for y in range(0,3):
-                    try:
-                        output += str(grid[X][Y][x][y].value)
-                    except:
-                        output += "*" + str(grid[X][Y][x][y])
-                output += " ]"
-            output = output + "]"
-            print output
 
 
 def save_cell(cell, grid):

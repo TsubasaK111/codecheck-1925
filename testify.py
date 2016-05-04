@@ -3,37 +3,30 @@ import pdb, sys
 
 def test_cell(cell, grid):
     failed_tests=[]
-    unique = True
-    if not test_column(cell,grid):
-        failed_tests.append('test_column')
-        unique = False
-    if not test_row(cell,grid):
-        failed_tests.append('test_row')
-        unique = False
-    if not test_subgrid(cell,grid):
-        failed_tests.append('test_subgrid')
-        unique = False
-    return unique, failed_tests
+    if (test_column(cell,grid) and test_row(cell,grid) and test_subgrid(cell,grid)):
+        return True
+    else:
+        return False
 
-
-def test_column(cell, grid):
-    array = []
-    for X, grid_row in enumerate(grid):
-        for x, subgrid_row in enumerate(grid_row[cell.Y]):
-            array.append(grid[X][cell.Y][x][cell.y])
-    return test_array(array, cell)
 
 def test_row(cell, grid):
     array = []
+    for X, grid_column in enumerate(grid):
+        for x, subgrid_column in enumerate(grid_column[cell.Y]):
+            array.append(grid[X][cell.Y][x][cell.y])
+    return test_array(array, cell)
+
+def test_column(cell, grid):
+    array = []
     for Y, subgrid in enumerate(grid[cell.X]):
-        for y, column in enumerate(subgrid[cell.x]):
+        for y, row in enumerate(subgrid[cell.x]):
             array.append(grid[cell.X][Y][cell.x][y])
     return test_array(array, cell)
 
 def test_subgrid(cell, grid):
     array = []
-    for x, subgrid_row in enumerate(grid[cell.X][cell.Y]):
-        for y, other_cell in enumerate(subgrid_row):
+    for x, subgrid_column in enumerate(grid[cell.X][cell.Y]):
+        for y, other_cell in enumerate(subgrid_column):
             array.append(grid[cell.X][cell.Y][x][y])
     return test_array(array, cell)
 

@@ -1,5 +1,6 @@
 # Codecheck Sudoku[Python] Solution
    This is my solution for Codecheck's Sudoku challenge in Python.
+   
 
 ##Installation:
  1. **Install all requirements.**
@@ -20,5 +21,4 @@ codecheck: success: 3` should print to console.
 This repo is distributed under the <a href="http://opensource.org/licenses/MIT">MIT License</a>.
 
 ##Todo:
- * Refactor! Readability may be high, but I'm quite sure this challenge can be
- solved with 1/10th the amount of code I currently have.
+ * Refactor! Readability may be high, but this challenge can probably be solved with 1/10th the current amount of code.

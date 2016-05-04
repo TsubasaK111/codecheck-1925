@@ -19,26 +19,26 @@ class Cell():
 
 
 def cellify(grid):
-    """Take a sudoku grid (a recursive list of 3 items^4), and makes each
+    """Take a sudoku grid (a recursive list[4D] of items), and makes each
        item a 'cell' that can address where it is located in the grid"""
-    for X, grid_row in enumerate(grid):
-        for Y, subgrid in enumerate(grid_row):
-            for x, row in enumerate(subgrid):
-                for y, item in enumerate(row):
+    for X, grid_column in enumerate(grid):
+        for Y, subgrid in enumerate(grid_column):
+            for x, column in enumerate(subgrid):
+                for y, item in enumerate(column):
                     cell = Cell(value=item, X=X, Y=Y, x=x, y=y)
                     if cell.value != 0:
                         cell.constant = True
                     else:
                         cell.constant = False
-                    row[y] = cell
+                    column[y] = cell
     return grid
 
 def uncellify(grid):
     """Reverse the 'cellify()' process and convert each Cell item into
        an integer in a sudoku grid."""
-    for X, grid_row in enumerate(grid):
-        for Y, subgrid in enumerate(grid_row):
-            for x, row in enumerate(subgrid):
-                for y, cell in enumerate(row):
-                    row[y] = cell.value
+    for X, grid_column in enumerate(grid):
+        for Y, subgrid in enumerate(grid_column):
+            for x, column in enumerate(subgrid):
+                for y, cell in enumerate(column):
+                    column[y] = cell.value
     return grid
