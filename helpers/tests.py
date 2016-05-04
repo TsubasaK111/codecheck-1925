@@ -1,6 +1,3 @@
-import pdb, sys
-
-
 def test_cell(cell, grid):
     """run all sudoku tests to see if a cell value is valid."""
     if (test_column(cell,grid) and test_row(cell,grid) and test_subgrid(cell,grid)):

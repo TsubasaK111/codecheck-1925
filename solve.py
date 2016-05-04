@@ -1,7 +1,7 @@
 import pdb, sys
-import testify
-from matrixify import print_grid
-from cellify import increment_cell, previous_cell, next_cell, last_cell
+import helpers.tests as tests
+from helpers.matrix import print_grid
+from helpers.cell import increment_cell, previous_cell, next_cell, last_cell
 
 
 def solve_grid(grid):
@@ -13,7 +13,7 @@ def solve_grid(grid):
 
 def recursive_solve(cell, grid):
     """Recursive backtracking algorithm component. Enumerate through integers in
-       each cell and build solution candidates by recursively calling itself."""
+       each cell and build solution candidates by recursively calling self."""
     # prevent a bug where grids with a constant in last cell would not solve.
     if last_cell(cell) and cell.constant:
         return grid
@@ -21,7 +21,7 @@ def recursive_solve(cell, grid):
         cell = next_cell(cell,grid)
     for i in range(1,10):
         cell = increment_cell(cell, grid)
-        success = testify.test_cell(cell, grid)
+        success = tests.test_cell(cell, grid)
         if success:
             # Test is a success, save value into cell and recurse to next cell
             save_cell(cell, grid)

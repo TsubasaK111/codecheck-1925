@@ -1,6 +1,3 @@
-import pdb
-
-
 def block_matrixify(flat_array):
     """Restructure the two-dimensional array into four-dimensions
        (a matrix of a matrices)"""

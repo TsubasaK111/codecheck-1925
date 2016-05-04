@@ -1,8 +1,8 @@
 import pdb, pprint
 
-from matrixify import block_matrixify, un_block_matrixify
-from cellify import Cell, cellify, uncellify
-from solvify import solve_grid
+from helpers.matrix import block_matrixify, un_block_matrixify
+from helpers.cell import Cell, cellify, uncellify
+from solve import solve_grid
 
 def solve(flat_array):
     print "input is: " + str(flat_array)
