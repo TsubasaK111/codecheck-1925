@@ -3,14 +3,14 @@
 
 ##Methodology:
    This solution employs a simple backtracking algorithm with some modifications.
-   * Sudoku grids are partitioned into block matrixes for better organization.
-   * The entire 9x9 grid is named a 'grid', and each 3x3 sub-matrix is a 'subgrid'.
-   * Each value is converted into a 'Cell' object with coordinate values to
+   * Sudoku grids are partitioned into <b>block matrixes</b> for better organization.
+   * The entire 9x9 grid is named a '<b>grid</b>', and each 3x3 sub-matrix is a '<b>subgrid</b>'.
+   * Each value is converted into a '<b>Cell</b>' object with coordinate values to
      simplify handling.
-   * Each given value becomes a 'constant' Cell to prevent being modified.
+   * Each given value becomes a '<b>constant</b>' Cell to prevent being modified.
    * The algorithm begins from the top left-most Cell.
    * The target Cell, if not a given value, is enumerated through.
-   * Enumeration starts from the previous cell value to find a valid value faster.
+   * <b>Enumeration starts from the previous cell value + 1</b> to find a valid value faster.
    * For each enumerated attempt, tests are run to see if it is sudoku-valid.
    * If tests pass, then the algorithm recursively calls itself,
      passing in the partially solved grid and the next Cell in the grid.
@@ -22,11 +22,10 @@
 
 ##Installation:
  1. **Install all requirements.**
- 2. Download the contents of this repo.
+ 2. Download the contents of this repo to a directory of your choice.
  3. Open command prompt.
  4. Enter `cd [directory of your choice] && codecheck`
- 5. `codecheck: tests  : 3
-codecheck: success: 3` should print to console.
+ 5. `codecheck: tests  : 3  codecheck: success: 3` should print to console.
  6. This means that I'm moderately awesome. (And so are you!)
 
 ##Requirements:
