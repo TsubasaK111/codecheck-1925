@@ -35,6 +35,7 @@ def cellify(grid):
                     column[y] = cell
     return grid
 
+
 def uncellify(grid):
     """Reverse the 'cellify()' process and convert each Cell item into
        an integer in a sudoku grid."""
@@ -44,3 +45,72 @@ def uncellify(grid):
                 for y, cell in enumerate(column):
                     column[y] = cell.value
     return grid
+
+
+def increment_cell(cell, grid):
+    """increment cell value based on the value of previous cell.
+       this is to enable enumerating to a 'valid' value faster."""
+    old_cell = previous_cell(cell, grid)
+    if cell.value == 0:
+        cell.value = old_cell.value + 1
+    else:
+        cell.value += 1
+    if cell.value > 9:
+        cell.value = 1
+    return cell
+
+
+def previous_cell(cell, grid):
+    """Returns the previous cell in the grid."""
+    X = cell.X
+    Y = cell.Y
+    x = cell.x
+    y = cell.y
+    y -= 1
+    if y < 0:
+        y = 0
+        x -= 1
+        if x < 0:
+            x = 0
+            Y -= 1
+            if Y < 0:
+                Y = 0
+                X -= 1
+                if X < 0:
+                    # This is the first cell in the grid, so return first cell.
+                    return cell
+    old_cell = grid[X][Y][x][y]
+    return old_cell
+
+
+def next_cell(cell, grid):
+    """Returns the next cell in the grid that is NOT a constant."""
+    X = cell.X
+    Y = cell.Y
+    x = cell.x
+    y = cell.y
+    y += 1
+    if y > 2:
+        y = 0
+        x += 1
+        if x > 2:
+            x = 0
+            Y += 1
+            if Y > 2:
+                Y = 0
+                X += 1
+                if X > 2:
+                    # This is the last cell in the grid, so return last cell.
+                    return cell
+    new_cell = grid[X][Y][x][y]
+    # Find the next non-constant cell by recursion.
+    if new_cell.constant == True:
+        new_cell = next_cell(new_cell, grid)
+    return new_cell
+
+
+def last_cell(cell):
+    if cell.X == 2 and cell.Y == 2 and cell.x ==2 and cell.y ==2:
+        return True
+    else:
+        return False
