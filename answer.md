@@ -31,8 +31,8 @@
 ##Requirements:
  * <a href="https://www.python.org/downloads/">Python2</a>
  * <a href="https://docs.npmjs.com/getting-started/installing-node">Node.js/npm</a>
- * <a href="https://github.com/code-check/codecheck">Codecheck</a> ('npm install codecheck -g')
- * <a href="http://nose.readthedocs.io/en/latest/">Nosetests</a> ('pip install nose')
+ * <a href="https://github.com/code-check/codecheck">Codecheck</a> (`npm install codecheck -g`)
+ * <a href="http://nose.readthedocs.io/en/latest/">Nosetests</a> (`pip install nose`)
 
 ##License:
 This repo is distributed under the <a href="http://opensource.org/licenses/MIT">MIT License</a>.

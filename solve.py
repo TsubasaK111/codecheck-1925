@@ -19,6 +19,7 @@ def recursive_solve(cell, grid):
         return grid
     elif cell.constant:
         cell = next_cell(cell,grid)
+
     for i in range(1,10):
         cell = increment_cell(cell, grid)
         success = tests.test_cell(cell, grid)
