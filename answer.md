@@ -3,8 +3,8 @@
 
 ##Methodology:
    This solution employs a simple backtracking algorithm with some modifications.
-   * Sudoku grids are partitioned into <b>block matrixes</b> for better organization.
-   * The entire 9x9 grid is named a '<b>grid</b>', and each 3x3 sub-matrix is a '<b>subgrid</b>'.
+   * Sudoku grids are partitioned into <b>block matrices</b> for better organization.
+   * The entire 9x9 grid is named a '<b>grid</b>', and each 3x3 sub-matrix is a '<b>sub-grid</b>'.
    * Each value is converted into a '<b>Cell</b>' object with coordinate values to
      simplify handling.
    * Each given value becomes a '<b>constant</b>' Cell to prevent being modified.
